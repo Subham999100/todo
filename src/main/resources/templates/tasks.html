@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo App</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+        }
+
+        .container {
+            width: 400px;
+            margin: 60px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .done {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>My Todo List</h2>
+
+    <ul>
+        <form action="/" method="POST">
+            <div>
+                <input type="text" name="title" placeholder="Task title" required="required">
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+        <!-- Loop through tasks -->
+        <li th:each="task : ${tasks}">
+            <span th:text="${task.title}"
+                  th:classappend="${task.completed} ? 'done' : ''">
+            </span>
+        </li>
+    </ul>
+
+    <!-- If no tasks -->
+    <p th:if="${#lists.isEmpty(tasks)}">
+        No tasks available
+    </p>
+</div>
+
+</body>
+</html>
