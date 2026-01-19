@@ -5,204 +5,204 @@
     <title>Todo App</title>
 
     <style>
+        .app {
+            width: 100%;
+            max-width: 700px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        @keyframes animated-text {
+            to { width: 100%; }
+        }
+        .todo-list {
+            width: 100%;
+            max-width: 600px;
+        }
+
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: "Segoe UI", Roboto, Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            display: flex;
             align-items: center;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Work Sans', sans-serif;
+            min-height: 100vh;
+            padding-top: 3%;
+        }
+
+        .standard {
+            background-image: linear-gradient(100deg, #575656, #062e3f);
+            color: #ffdfdb;
+            transition: 0.3s linear;
+        }
+
+        .light {
+            background-image: linear-gradient(100deg, #d4f1ff, #ffffff);
+            color: #1a150e;
+            transition: 0.3s linear;
+        }
+
+        .darker {
+            background-image: linear-gradient(100deg, #001214, #001f29);
+            color: white;
+            transition: 0.3s linear;
+        }
+
+        #header, #form {
+            margin: 0 1rem;
+            width: 100%;
+        }
+
+        #header {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
+            font-size: 3rem;
+            min-height: 25vh;
         }
 
-        .container {
-            width: 440px;
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 14px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            animation: fadeIn 0.6s ease;
+        #title {
+            border-right: solid 3px rgba(0, 0, 0, 0.75);
+            white-space: pre;
+            overflow: hidden;
+            letter-spacing: 0.20rem;
+            animation: animated-text 2s steps(11,end) 0.5s 1 both,
+            animated-cursor 750ms steps(11,end) infinite;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @keyframes animated-text {
+            from { width: 0%; }
+            to { width: 480px; }
         }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 22px;
-            color: #333;
-            letter-spacing: 0.5px;
+        @keyframes animated-cursor {
+            from { border-right-color: rgba(0, 0, 0, 0.75); }
+            to { border-right-color: transparent; }
         }
 
-        /* ADD TASK FORM */
         form {
             display: flex;
-            gap: 10px;
-            margin-bottom: 22px;
+            justify-content: center;
+            margin: 15px 0;
+            padding: 0.8rem;
+            width: 100%;
         }
 
-        input[type="text"] {
-            flex: 1;
-            padding: 10px 12px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            font-size: 14px;
-            outline: none;
-            transition: border 0.2s, box-shadow 0.2s;
-        }
-
-        input[type="text"]:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 2px rgba(102,126,234,0.2);
-        }
-
-        button {
-            padding: 10px 18px;
+        form input {
+            padding: 10px;
+            font-size: 17px;
             border: none;
-            border-radius: 8px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            font-size: 14px;
-            font-weight: 600;
+            outline: none;
+            border-top-left-radius: 17px;
+            border-bottom-left-radius: 17px;
+            max-width: 500px;
+            width: 100%;
+            background-color: #181a1a;
+            color: rgb(247, 226, 223);
+        }
+
+        form button {
+            padding: 10px;
+            font-size: 17px;
+            border-top-right-radius: 15px;
+            border-bottom-right-radius: 15px;
+            min-width: 100px;
+            background-color: rgb(247, 226, 223);
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        button:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+        #myUnOrdList {
+            display: flex;
+            justify-content: center;
+            width: 100%;
         }
 
-        ul {
+        .todo-list {
             list-style: none;
-            padding: 0;
-            margin: 0;
+            min-width: 25%;
         }
 
-        li {
-            margin-bottom: 10px;
-        }
-
-        .task-item {
+        .todo {
+            margin: 1rem;
+            font-size: 19px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #f9fafb;
-            padding: 12px 14px;
-            border-radius: 10px;
-            transition: background 0.2s, transform 0.2s;
+            padding: 0.25em 0.5em;
+            border-radius: 30px;
+            background-color: rgb(26, 27, 27);
         }
 
-        .task-item:hover {
-            background: #f1f3f6;
-            transform: translateX(2px);
+        .todo-item {
+            flex: 1;
+            padding: 0 0.5rem;
+            overflow-wrap: anywhere;
         }
 
-        .task-item span {
-            font-size: 14px;
-            color: #333;
-            max-width: 230px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .done {
-            text-decoration: line-through;
-            color: #9aa0a6;
-        }
-
-        .actions {
-            display: flex;
-            gap: 6px;
-        }
-
-        .btn {
-            padding: 5px 12px;
-            font-size: 12px;
-            border-radius: 999px;
-            text-decoration: none;
-            color: white;
-            font-weight: 600;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .toggle {
-            background: linear-gradient(135deg, #43e97b, #38f9d7);
-        }
-
-        .delete {
-            background: linear-gradient(135deg, #ff5858, #f857a6);
-        }
-
-        .btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 14px rgba(0,0,0,0.25);
-        }
-
-        .empty {
+        .check-btn, .delete-btn {
+            font-size: 19px;
+            cursor: pointer;
+            width: 2em;
+            height: 2em;
+            border-radius: 80%;
+            margin: 0 5px;
             text-align: center;
-            color: #888;
-            margin-top: 20px;
-            font-size: 14px;
+            line-height: 2em;
+            background-color: rgb(247, 226, 223);
+            color: black;
+            text-decoration: none;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            opacity: 0.5;
         }
     </style>
 </head>
 
-<body>
+<body class="standard">
 
-<div class="container">
-    <h2>My Todo List</h2>
+<header id="header">
+    <h1 id="title">My Todo App</h1>
+</header>
 
-    <!-- Add Task -->
-    <form action="/" method="POST">
-        <input type="text" name="title" placeholder="What do you need to do?" required>
-        <button type="submit">Add</button>
-    </form>
+<form id="form" action="/" method="POST">
+    <input type="text" name="title" placeholder="Add a task..." required>
+    <button type="submit">Add</button>
+</form>
 
-    <!-- Task List -->
-    <ul>
-        <li th:each="task : ${tasks}">
-            <div class="task-item">
+<div id="myUnOrdList">
+    <ul class="todo-list">
 
-                <span th:text="${task.title}"
-                      th:classappend="${task.completed} ? 'done' : ''">
-                </span>
+        <li th:each="task : ${tasks}"
+            class="todo"
+            th:classappend="${task.completed} ? 'completed' : ''">
 
-                <div class="actions">
-                    <a th:href="@{/{id}/toggle(id=${task.id})}"
-                       class="btn toggle">
-                        Toggle
-                    </a>
+            <span class="todo-item" th:text="${task.title}"></span>
 
-                    <a th:href="@{/{id}/delete(id=${task.id})}"
-                       class="btn delete"
-                       onclick="return confirm('Delete this task?')">
-                        Delete
-                    </a>
-                </div>
+            <a th:href="@{/{id}/toggle(id=${task.id})}"
+               class="check-btn"
+               title="Toggle">✓</a>
 
-            </div>
+            <a th:href="@{/{id}/delete(id=${task.id})}"
+               class="delete-btn"
+               onclick="return confirm('Delete this task?')"
+               title="Delete">✕</a>
+
         </li>
-    </ul>
 
-    <!-- Empty message -->
-    <p th:if="${#lists.isEmpty(tasks)}" class="empty">
-        No tasks available
-    </p>
+    </ul>
 </div>
+
+<p th:if="${#lists.isEmpty(tasks)}" style="opacity:0.6;">
+    No tasks available
+</p>
 
 </body>
 </html>
